@@ -1,7 +1,7 @@
 #include <stdio.h>
 // 引用输入输出标准头文件 包含scan()、printf()
 
-int main()
+int main(void)
 {
 	int dogs; // 创建一个dogs变量，用于接收用户输入和后续输出
 	
