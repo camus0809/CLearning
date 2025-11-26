@@ -1,29 +1,49 @@
 cmake_minimum_required(VERSION 3.15)
-project(test)
+project(C_Primer_Plus_Chapter2 C) # 指定语言为 C
 
-#[[
-	第二章示例
-]]
-#add_executable(example2_1 examples/example_2_1.c) # C Primer Plus example 2_1
-#add_executable(example2_2 examples/example_2_2.c) # C Primer Plus example 2_2
-#add_executable(example2_3 examples/example_2_3.c) # C Primer Plus example 2_3
-#add_executable(example2_4 examples/example_2_4.c) # C Primer Plus example 2_4
+# ==========================================
+# 1. 编译配置
+# ==========================================
+# 设置 C 标准为 C11
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
-#[[
-	第二章复习题
-]]
-add_executable(review_2_4 review/review_2_4.c) # C Primer Plus review_2_4
+# 开启更多警告，这对学习C语言非常重要！
+# -Wall: 开启大部分警告
+# -Wextra: 开启额外警告
+# -g: 保留调试信息（方便你用 gdb 或 VSCode 调试）
+add_compile_options(-Wall -Wextra -g)
 
-#[[
-	第二章习题
-]]
+# ==========================================
+# 2. 自动化构建函数
+# ==========================================
+# 定义一个宏，用来批量处理指定目录下的所有 .c 文件
+macro(add_executables_from_dir dir_name)
+    # 1. 搜索该目录下所有的 .c 文件，存入 source_files 变量
+    file(GLOB source_files "${dir_name}/*.c")
 
-add_executable(exercises_2_1 exercises/exercises_2_1) # C Primer Plus exercises_2_1
-add_executable(exercises_2_2 exercises/exercises_2_2) # C Primer Plus exercises_2_2
-add_executable(exercises_2_3 exercises/exercises_2_3) # C Primer Plus exercises_2_3
-add_executable(exercises_2_4 exercises/exercises_2_4) # C Primer Plus exercises_2_4
-add_executable(exercises_2_5 exercises/exercises_2_5) # C Primer Plus exercises_2_5
-add_executable(exercises_2_6 exercises/exercises_2_6) # C Primer Plus exercises_2_6
-add_executable(exercises_2_7 exercises/exercises_2_7) # C Primer Plus exercises_2_7
-add_executable(exercises_2_8 exercises/exercises_2_8) # C Primer Plus exercises_2_8
- 
+    # 2. 遍历每一个找到的文件
+    foreach(src_file ${source_files})
+        # 3. 获取文件名（不带路径和后缀），例如 "example_2_1"
+        get_filename_component(target_name ${src_file} NAME_WE)
+        
+        # 4. 自动创建可执行文件
+        # 生成的目标名就是文件名，例如 ./build/example_2_1
+        add_executable(${target_name} ${src_file})
+        
+        message(STATUS "Auto-added target: ${target_name}")
+    endforeach()
+endmacro()
+
+# ==========================================
+# 3. 调用自动构建
+# ==========================================
+
+# 自动扫描 examples 文件夹
+add_executables_from_dir("examples")
+
+# 自动扫描 review 文件夹
+add_executables_from_dir("review")
+
+# 自动扫描 exercises 文件夹
+add_executables_from_dir("exercises")
