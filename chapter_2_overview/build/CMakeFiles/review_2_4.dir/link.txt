@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/review_2_4.dir/link.d CMakeFiles/review_2_4.dir/review/review_2_4.c.o -o review_2_4

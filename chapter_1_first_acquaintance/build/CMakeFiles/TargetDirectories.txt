@@ -1,3 +1,0 @@
-/home/aurora/Documents/project/code/c_code/chapter_1_overview/build/CMakeFiles/example1_2.dir
-/home/aurora/Documents/project/code/c_code/chapter_1_overview/build/CMakeFiles/edit_cache.dir
-/home/aurora/Documents/project/code/c_code/chapter_1_overview/build/CMakeFiles/rebuild_cache.dir
